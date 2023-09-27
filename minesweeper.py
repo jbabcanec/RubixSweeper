@@ -1,10 +1,12 @@
 import random
 
 class Minesweeper:
-    def __init__(self, size=2, mines=2):
+    def __init__(self, size, mines):
         self.size = size
         self.mines = mines
         self.board = [[' ' for _ in range(size)] for _ in range(size)]
+        self.revealed = [[False for _ in range(size)] for _ in range(size)]
+        self.flagged = [[False for _ in range(size)] for _ in range(size)]
         self.place_mines()
         self.calculate_numbers()
 
@@ -28,8 +30,16 @@ class Minesweeper:
                                 count += 1
                 self.board[row][col] = str(count) if count > 0 else ' '
 
-# Test the Minesweeper class
-minesweeper = Minesweeper()
-print("Minesweeper board:")
-for row in minesweeper.board:
-    print(" ".join(row))
+    def reveal_cell(self, row, col):
+        """
+        Reveal a cell on the Minesweeper board.
+        """
+        self.revealed[row][col] = True  # Sets the cell as revealed
+
+    def flag_cell(self, row, col):
+        """
+        Toggle a flag on a cell on the Minesweeper board.
+        """
+        if not self.revealed[row][col]:  # Check if the cell is not revealed
+            self.flagged[row][col] = not self.flagged[row][col]  # This line toggles the flag
+            print(f"Flagged status of cell ({row}, {col}): {self.flagged[row][col]}")

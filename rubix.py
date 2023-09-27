@@ -55,6 +55,19 @@ class Rubix:
                 # Similar logic, but reversed
                 pass  # TODO
 
+    def get_revealed(self, face_name):
+        """
+        Get the revealed status of a specific face.
+        """
+        return self.faces[face_name].revealed
+
+    def get_flagged(self, face_name):
+        """
+        Get the flagged status of a specific face.
+        """
+        return self.faces[face_name].flagged
+
+
     def rotate_face(self, face_name, direction):
         """
         Rotate a face of the cube.
@@ -68,7 +81,16 @@ class Rubix:
         Reveal a cell in the Minesweeper board of the specified face.
         """
         face = self.faces[face_name]
-        # TODO: Implement reveal logic
+        face.reveal_cell(row, col)
+
+    def flag_cell(self, face_name, row, col):
+        """
+        Toggle a flag on a cell on the Minesweeper board of the specified face.
+        """
+        face = self.faces[face_name]
+        face.flag_cell(row, col)
+        print(f"Flagged status in Rubix for cell ({row}, {col}) on face {face_name}: {face.flagged[row][col]}")
+
 
     def get_face(self, face_name):
         """
